@@ -1,0 +1,10 @@
+<% provide(:map, 'map') %>
+<h1>
+  <%= @user.name %>, <%= @user.email %>
+</h1>
+
+<div id="map-canvas"></div>
+
+<div class="map-save">
+  <a href="#" class="btn btn-primary"><i class="icon-white icon-map-marker"></i> Save Location</a>
+</div>
