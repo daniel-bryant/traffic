@@ -1,5 +1,7 @@
 <div class="center hero-unit">
-<h1>Welcome to the myTraffic Web App</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
-<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+  <h1>Welcome to the myTraffic Web App</h1>
+  <p>by <a href="https://github.com/daniel-bryant" target="_blank">Daniel Bryant</a></p>
+  <% if !signed_in? %>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+  <% end %>
 </div>
