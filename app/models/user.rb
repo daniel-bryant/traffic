@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
+  belongs_to :map, dependent: :destroy
+
   before_save { self.email = email.downcase }
-  before_create :create_remember_token
+  before_create :create_token_and_map
 
   validates :name,  presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -19,7 +21,8 @@ class User < ActiveRecord::Base
 
   private
 
-    def create_remember_token
+    def create_token_and_map
       self.remember_token = User.encrypt(User.new_remember_token)
+      self.map_id = Map.create().id
     end
 end

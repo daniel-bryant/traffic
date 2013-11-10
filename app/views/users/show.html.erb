@@ -1,17 +1,56 @@
 <% provide(:map, 'map') %>
 <h1>
-  <%= @user.name %>, <%= @user.email %>
+  Welcome <%= @user.name %>, Safe Travels
 </h1>
 
 <div id="map-canvas"></div>
 
 <div class="map-save">
-  <%= form_for(@user) do |f| %>
+  <div style="height: 30px">
+    Traffic
+    <% if @map.traffic? %>
+      <input type="checkbox" id="check_t" name="check_t" onclick="toggle_t();" checked>
+    <% else %>
+      <input type="checkbox" id="check_t" name="check_t" onclick="toggle_t();">
+    <% end %>
+    Weather
+    <% if @map.weather? %>
+      <input type="checkbox" id="check_w" name="check_w" onclick="toggle_w();" checked>
+    <% else %>
+      <input type="checkbox" id="check_w" name="check_w" onclick="toggle_w();">
+    <% end %>
+
+    <div style="float:right;">
+      <a href="#" class="btn btn-success" onClick="window.location.reload()"><i class="icon-white icon-refresh"></i></a>
+    </div>
+  </div>
+
+  <%= form_for (@map) do |f| %>
 
     <%= f.hidden_field :lat %>
     <%= f.hidden_field :lon %>
     <%= f.hidden_field :zoom %>
+    <%= f.hidden_field :traffic %>
+    <%= f.hidden_field :weather %>
 
-    <%= f.submit '<i class="icon-white icon-map-marker"></i> Save Location', class: "btn btn-large btn-primary" %>
+    <%= f.submit "Update Map", class: "btn btn-primary" %>
   <% end %>
 </div>
+
+<%= javascript_tag do %>
+  function toggle_t()
+  {
+    if(document.getElementById('check_t').checked)
+      document.getElementById('map_traffic').value = 't';
+    else
+      document.getElementById('map_traffic').value = 'f';
+  }
+
+  function toggle_w()
+  {
+    if(document.getElementById('check_w').checked)
+      document.getElementById('map_weather').value = 't';
+    else
+      document.getElementById('map_weather').value = 'f';
+  }
+<% end %>

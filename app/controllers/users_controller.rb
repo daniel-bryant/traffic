@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @map = Map.find(@user.map_id)
   end
 
   def new

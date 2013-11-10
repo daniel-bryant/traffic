@@ -11,19 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110024223) do
+ActiveRecord::Schema.define(version: 20131110140006) do
 
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.boolean  "admin"
+  create_table "maps", force: true do |t|
     t.string   "lat"
     t.string   "lon"
     t.string   "zoom"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "traffic",    default: true
+    t.boolean  "weather",    default: false
+  end
+
+  create_table "users", force: true do |t|
+    t.integer  "map_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_token"
+    t.boolean  "admin",           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
